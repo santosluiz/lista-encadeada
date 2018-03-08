@@ -11,7 +11,8 @@ struct listaDados {
 	
 int menu(); 
 
-void insereDados(struct listaDados *lista);
+int insereDados(struct listaDados *lista);
+void listarDados(struct listaDados *lista);
 
 int main(){
 
@@ -21,13 +22,14 @@ int main(){
 		opcaoSelecionada = menu();		
 	
 		switch(opcaoSelecionada){
-			case 1 : {
-				insereDados(&lista);
+			case 1 : {					
+				insereDados(lista);				
 				break;
 			}  
 			
 			case 2 : {
-				printf("opcao 2\n");
+				system("cls");
+				listarDados(lista);				
 				break;
 			}
 			
@@ -54,31 +56,65 @@ int menu(){
 	int opcao;
 	
 	printf(" --------------- MENU ---------------- \n");
-	printf("1- Inserir Dados 1 \n2- Opcao 2 \n3- Opcao 3 \n4- Sair\n");
+	printf("1- Inserir Dados\n2- Listar Dados\n3- Opcao 3 \n4- Sair\n");
 	scanf("%d", &opcao);	
 	
 	return opcao;
 }
 
-void insereDados(struct listaDados *lista){
+int insereDados(struct listaDados *lista){
 		
-	int i, j, aux;
-	int a = 0;
-				
+	int i, j, aux;	
+	
 	printf("De 1 a 10, qual vetor voce deseja escolher?");
 	scanf("%d", &aux);
 		
 	aux -= 1;
 	lista[aux].escolha = aux;	
-					
-	printf("Digite a qtd de elementos que voce deseja inserir:");
-	scanf("%d", &lista[aux].qtd);
 	
-	lista[aux].vetPont = (int *) malloc(lista[aux].qtd * sizeof(int));
+	if(lista[aux].vetPont > 0){
 		
-	printf("Agora, insira %d numeros no vetor %d\n", lista[aux].qtd, lista[aux].escolha);
+		printf("Estrutura já preenchida");
+		return 0;		
 		
-	for(i=0; i<lista[aux].qtd; i++){
-		scanf("%d", &lista[aux].vetPont[i]);
-	} 
+	} else {					
+	
+		printf("Digite a qtd de elementos que voce deseja inserir:");
+		scanf("%d", &lista[aux].qtd);
+		
+		lista[aux].vetPont = (int *) malloc(lista[aux].qtd * sizeof(int));
+			
+		printf("Agora, insira %d numeros no vetor %d\n", lista[aux].qtd, (lista[aux].escolha+1));
+			
+		for(i=0; i<lista[aux].qtd; i++){
+			scanf("%d", &lista[aux].vetPont[i]);
+		} 
+	}
+}
+
+void listarDados(struct listaDados *lista){
+	
+	int i, j;
+	
+	for(j=0; j<TAM; j++){
+		
+		printf("Posicao: %d\n", j+1);
+		
+		if(lista[j].qtd > 0){
+			printf("Itens: %d\n", lista[j].qtd);
+			
+			printf("Valores: ");
+			for(i=0; i<lista[j].qtd; i++){
+				printf("%d", lista[j].vetPont[i]);			
+				
+				if(i < (lista[j].qtd-1)){
+					printf(" - ");
+				}
+			} 		
+		} else {
+			printf("Itens: 0\nValores: 0");
+		}	
+		
+		puts("\n");
+	}
 }
