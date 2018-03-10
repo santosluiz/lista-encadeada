@@ -13,6 +13,7 @@ int menu();
 
 int insereDados(struct listaDados *lista);
 void listarDados(struct listaDados *lista);
+void listarDadosOrdenados(struct listaDados *lista);
 
 int main(){
 
@@ -34,7 +35,8 @@ int main(){
 			}
 			
 			case 3 : {
-				printf("opcao 3\n");
+				system("cls");
+				listarDadosOrdenados(lista);				
 				break;
 			}
 			
@@ -56,7 +58,7 @@ int menu(){
 	int opcao;
 	
 	printf(" --------------- MENU ---------------- \n");
-	printf("1- Inserir Dados\n2- Listar Dados\n3- Opcao 3 \n4- Sair\n");
+	printf("1- Inserir Dados\n2- Listar Dados\n3- Listar de Forma Ordenada\n4- Sair\n");
 	scanf("%d", &opcao);	
 	
 	return opcao;
@@ -117,4 +119,8 @@ void listarDados(struct listaDados *lista){
 		
 		puts("\n");
 	}
+}
+
+void listarDadosOrdenados(struct listaDados *lista){
+	
 }
