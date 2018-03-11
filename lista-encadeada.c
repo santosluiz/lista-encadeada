@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define TAM 10
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 struct listaDados {
 	int *vetPont;
+	int *vetOrdenado;
 	int qtd;
 	int escolha;
 } lista[TAM];
@@ -98,18 +98,18 @@ void listarDados(struct listaDados *lista){
 	
 	int i, j;
 	
-	for(j=0; j<TAM; j++){
+	for(i=0; i<TAM; i++){
 		
-		printf("Posicao: %d\n", j+1);
+		printf("Posicao: %d\n", i+1);
 		
-		if(lista[j].qtd > 0){
-			printf("Itens: %d\n", lista[j].qtd);
+		if(lista[i].qtd > 0){
+			printf("Itens: %d\n", lista[i].qtd);
 			
 			printf("Valores: ");
-			for(i=0; i<lista[j].qtd; i++){
-				printf("%d", lista[j].vetPont[i]);			
+			for(j=0; j<lista[i].qtd; j++){
+				printf("%d", lista[i].vetPont[j]);			
 				
-				if(i < (lista[j].qtd-1)){
+				if(j < (lista[i].qtd-1)){
 					printf(" - ");
 				}
 			} 		
@@ -122,5 +122,45 @@ void listarDados(struct listaDados *lista){
 }
 
 void listarDadosOrdenados(struct listaDados *lista){
+
+	int i, j, aux;
 	
-}
+	for(i=0; i<TAM; i++){
+		lista[i].vetOrdenado = (int *) malloc(lista[i].qtd * sizeof(int));			
+		for(j=0; j<lista[i].qtd; j++){
+			lista[i].vetOrdenado[j] = lista[i].vetPont[j];	
+		}
+	} 	
+	
+	for(i=0; i<TAM; i++){		
+		for(j=i+1; j<lista[i].qtd; j++){	
+			if( lista[i].vetOrdenado[i] > lista[i].vetOrdenado[j]){
+				aux = lista[i].vetOrdenado[i];	
+				lista[i].vetOrdenado[i] = lista[i].vetOrdenado[j];
+				lista[i].vetOrdenado[j] = aux;				
+			}	
+		}
+	}		
+		
+	for(i=0; i<TAM; i++){
+			printf("Posicao: %d\n", i+1);
+	
+			if(lista[i].qtd > 0){
+				printf("Itens: %d\n", lista[i].qtd);
+				
+				printf("Valores: ");
+				for(j=0; j<lista[i].qtd; j++){
+					printf("%d", lista[i].vetOrdenado[j]);			
+					
+					if(j < (lista[i].qtd-1)){
+						printf(" - ");
+					}
+				} 		
+				
+			} else {
+				printf("Itens: 0\nValores: 0");
+			}			
+		
+		puts("\n\n");
+	} 
+}	
