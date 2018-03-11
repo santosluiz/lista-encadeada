@@ -14,6 +14,7 @@ int menu();
 int insereDados(struct listaDados *lista);
 void listarDados(struct listaDados *lista);
 void listarDadosOrdenados(struct listaDados *lista);
+void excluirNumero(struct listaDados *lista);
 
 int main(){
 
@@ -41,6 +42,11 @@ int main(){
 			}
 			
 			case 4 : {
+				excluirNumero(lista);
+				break;
+			}
+			
+			case 6 : {
 				exit(0);
 				break;
 			}
@@ -50,7 +56,7 @@ int main(){
 				break;
 			}
 		} 
-	} while(opcaoSelecionada != 4);
+	} while(opcaoSelecionada != 6);
 } 
 
 
@@ -164,3 +170,32 @@ void listarDadosOrdenados(struct listaDados *lista){
 		puts("\n\n");
 	} 
 }	
+
+void excluirNumero(struct listaDados *lista){
+	
+	int i, j, num, vetEscolhido;
+	int valorNull = 1111;
+	
+	printf("Qual vetor voce deseja escolher?");
+	scanf("%d", &vetEscolhido);	
+	vetEscolhido -= 1;	
+	
+	printf("Qual valor deseja apagar?");
+	scanf("%d", &num);
+	
+	for(j=0; j<lista[vetEscolhido].qtd; j++){
+		
+		if(lista[vetEscolhido].vetPont[j] == num){
+			lista[vetEscolhido].vetPont[j] = valorNull;
+		}
+	}
+}
+	
+
+
+
+
+
+
+
+
