@@ -15,6 +15,7 @@ int insereDados(struct listaDados *lista);
 void listarDados(struct listaDados *lista);
 void listarDadosOrdenados(struct listaDados *lista);
 void excluirNumero(struct listaDados *lista);
+void aumentarTamanho(struct listaDados *lista);
 
 int main(){
 
@@ -42,10 +43,15 @@ int main(){
 			}
 			
 			case 4 : {
+				system("cls");
 				excluirNumero(lista);
 				break;
 			}
 			
+			case 5 : {
+				aumentarTamanho(lista);
+				break;
+			}
 			case 6 : {
 				exit(0);
 				break;
@@ -64,7 +70,7 @@ int menu(){
 	int opcao;
 	
 	printf(" --------------- MENU ---------------- \n");
-	printf("1- Inserir Dados\n2- Listar Dados\n3- Listar de Forma Ordenada\n4- Excluir Numero\n5- \n6-Sair\n");
+	printf("1- Inserir Dados\n2- Listar Dados\n3- Listar de Forma Ordenada\n4- Excluir Numero\n5- Aumentar Tamanho\n6-Sair\n");
 	scanf("%d", &opcao);	
 	
 	return opcao;
@@ -195,7 +201,25 @@ void excluirNumero(struct listaDados *lista){
 }
 	
 
-
+void aumentarTamanho(struct listaDados *lista){
+	
+	int i, j, vetEscolhido, aumento;
+	int tamanho;
+	
+	printf("Qual vetor voce deseja escolher?");
+	scanf("%d", &vetEscolhido);	
+	vetEscolhido -= 1;	
+	
+	printf("Quantas posicoes deseja aumentar?");
+	scanf("%d", &aumento);	
+	
+	aumento += lista[vetEscolhido].qtd;
+	
+	//tamanho = sizeof(lista[vetEscolhido].vetPont)/sizeof(int);
+	
+	lista[vetEscolhido].vetPont = (int *) realloc(lista[vetEscolhido].vetPont,aumento);
+	
+}
 
 
 
