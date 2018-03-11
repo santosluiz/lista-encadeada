@@ -64,7 +64,7 @@ int menu(){
 	int opcao;
 	
 	printf(" --------------- MENU ---------------- \n");
-	printf("1- Inserir Dados\n2- Listar Dados\n3- Listar de Forma Ordenada\n4- Sair\n");
+	printf("1- Inserir Dados\n2- Listar Dados\n3- Listar de Forma Ordenada\n4- Excluir Numero\n5- \n6-Sair\n");
 	scanf("%d", &opcao);	
 	
 	return opcao;
