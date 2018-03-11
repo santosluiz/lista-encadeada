@@ -181,12 +181,15 @@ void excluirNumero(struct listaDados *lista){
 	vetEscolhido -= 1;	
 	
 	printf("Qual valor deseja apagar?");
-	scanf("%d", &num);
+	scanf("%d", &num);		
 	
 	for(j=0; j<lista[vetEscolhido].qtd; j++){
 		
 		if(lista[vetEscolhido].vetPont[j] == num){
 			lista[vetEscolhido].vetPont[j] = valorNull;
+		} else {
+			printf("Numero inexistente\n");
+			break;
 		}
 	}
 }
