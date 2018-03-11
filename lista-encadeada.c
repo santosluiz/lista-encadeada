@@ -16,6 +16,7 @@ void listarDados(struct listaDados *lista);
 void listarDadosOrdenados(struct listaDados *lista);
 void excluirNumero(struct listaDados *lista);
 void aumentarTamanho(struct listaDados *lista);
+void sair(struct listaDados *lista);
 
 int main(){
 
@@ -53,7 +54,7 @@ int main(){
 				break;
 			}
 			case 6 : {
-				exit(0);
+				sair(lista);
 				break;
 			}
 			
@@ -155,23 +156,23 @@ void listarDadosOrdenados(struct listaDados *lista){
 	}		
 		
 	for(i=0; i<TAM; i++){
-			printf("Posicao: %d\n", i+1);
+		printf("Posicao: %d\n", i+1);
 	
-			if(lista[i].qtd > 0){
-				printf("Itens: %d\n", lista[i].qtd);
+		if(lista[i].qtd > 0){
+			printf("Itens: %d\n", lista[i].qtd);
 				
-				printf("Valores: ");
-				for(j=0; j<lista[i].qtd; j++){
-					printf("%d", lista[i].vetOrdenado[j]);			
+			printf("Valores: ");
+			for(j=0; j<lista[i].qtd; j++){
+				printf("%d", lista[i].vetOrdenado[j]);			
 					
-					if(j < (lista[i].qtd-1)){
-						printf(" - ");
-					}
-				} 		
-				
-			} else {
-				printf("Itens: 0\nValores: 0");
-			}			
+				if(j < (lista[i].qtd-1)){
+					printf(" - ");
+				}
+			} 		
+			
+		} else {
+			printf("Itens: 0\nValores: 0");
+		}			
 		
 		puts("\n\n");
 	} 
@@ -217,12 +218,20 @@ void aumentarTamanho(struct listaDados *lista){
 	
 	//tamanho = sizeof(lista[vetEscolhido].vetPont)/sizeof(int);
 	
-	lista[vetEscolhido].vetPont = (int *) realloc(lista[vetEscolhido].vetPont,aumento);
-	
+	lista[vetEscolhido].vetPont = (int *) realloc(lista[vetEscolhido].vetPont,aumento);	
 }
 
-
-
-
-
-
+void sair(struct listaDados *lista){
+	
+	int i, j;
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<lista[i].qtd; j++){
+			free(lista[i].vetPont);
+			free(lista[i].vetOrdenado);		
+		}
+	}
+	
+	system("cls");
+	exit(0);	
+}
