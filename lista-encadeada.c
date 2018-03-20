@@ -3,8 +3,7 @@
 #define TAM 10
 
 struct listaDados {
-	int *vetPont;
-	int *vetOrdenado;
+	int *vetPont;	
 	int qtd;
 	int contador;
 	int escolha;
@@ -16,6 +15,7 @@ int insereDados(struct listaDados *lista);
 void listarDados(struct listaDados *lista);
 void listarDadosOrdenados(struct listaDados *lista);
 void ordena(int i, struct listaDados *lista);
+void listarTodosOsDados(struct listaDados *lista);
 void excluirNumero(struct listaDados *lista);
 void aumentarTamanho(struct listaDados *lista);
 void sair(struct listaDados *lista);
@@ -47,16 +47,22 @@ int main(){
 			
 			case 4 : {
 				system("cls");
-				excluirNumero(lista);
+				listarTodosOsDados(lista);
 				break;
 			}
 			
 			case 5 : {
 				system("cls");
+				excluirNumero(lista);
+				break;
+			}
+			
+			case 6 : {
+				system("cls");
 				aumentarTamanho(lista);
 				break;
 			}
-			case 6 : {
+			case 7 : {
 				sair(lista);
 				break;
 			}
@@ -66,7 +72,7 @@ int main(){
 				break;
 			}
 		} 
-	} while(opcaoSelecionada != 6);
+	} while(opcaoSelecionada != 7);
 } 
 
 
@@ -191,7 +197,37 @@ void ordena(int i, struct listaDados *lista){
 	puts("\n");		
 		
 }
-			
+		
+		
+void listarTodosOsDados(struct listaDados *lista){
+	int i, j, *vet;
+	int somatorio = 0;
+	int aux = 0;
+	int aux2 = 0;
+	
+	for(i=0; i<TAM; i++){
+		somatorio += lista[i].qtd;
+	}
+	
+	vet = (int *) malloc(somatorio * sizeof(int));
+	
+	for(i=0; i<lista[aux].contador; i++){	
+		vet[i] = lista[aux].vetPont[i];
+		aux++;		
+	}
+	
+	puts("\n");
+	
+	for(i=0; i<lista[aux2].contador; i++){
+		
+		printf("%d - ", vet[i]);
+		aux2++;
+	}
+	
+	puts("\n");
+	printf("Somatorio: %d", somatorio);
+	
+}			
 
 
 void excluirNumero(struct listaDados *lista){
@@ -220,8 +256,7 @@ void excluirNumero(struct listaDados *lista){
 
 void aumentarTamanho(struct listaDados *lista){
 	
-	int i, j, vetEscolhido, aumento;
-	int tamanho;
+	int i, j, vetEscolhido, aumento;	
 	
 	printf("Qual vetor voce deseja escolher?");
 	scanf("%d", &vetEscolhido);	
@@ -230,21 +265,19 @@ void aumentarTamanho(struct listaDados *lista){
 	printf("Quantas posicoes deseja aumentar?");
 	scanf("%d", &aumento);	
 	
-	aumento += lista[vetEscolhido].contador;
+	lista[vetEscolhido].qtd += aumento;
+	puts("\n");
 	
-	//tamanho = sizeof(lista[vetEscolhido].vetPont)/sizeof(int);
-	
-	lista[vetEscolhido].vetPont = (int *) realloc(lista[vetEscolhido].vetPont,aumento);	
+	lista[vetEscolhido].vetPont = (int *) realloc(lista[vetEscolhido].vetPont, lista[vetEscolhido].qtd * sizeof(int));	
 }
 
 void sair(struct listaDados *lista){
 	
 	int i, j;
 	
-	for(i=0; i<TAM; i++){
-		for(j=0; j<lista[i].qtd; j++){
-			free(lista[i].vetPont);				
-		}
+	for(i=0; i<TAM; i++){		
+		
+		free(lista[i].vetPont[i]);						
 	}
 	
 	system("cls");
