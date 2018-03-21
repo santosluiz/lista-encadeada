@@ -232,24 +232,38 @@ void listarTodosOsDados(struct listaDados *lista){
 
 void excluirNumero(struct listaDados *lista){
 	
-	int i, j, num, vetEscolhido;
-	int valorNull = 1111;
-	
+	int i, j, num, vetEscolhido;	
+	int cont = 0;
+		
 	printf("Qual vetor voce deseja escolher?");
 	scanf("%d", &vetEscolhido);	
 	vetEscolhido -= 1;	
-	
+		
 	printf("Qual valor deseja apagar?");
 	scanf("%d", &num);		
-	
-	for(j=0; j<lista[vetEscolhido].contador; j++){
 		
-		if(lista[vetEscolhido].vetPont[j] == num){
-			lista[vetEscolhido].vetPont[j] = valorNull;
-		} else {
-			printf("Numero inexistente\n");
-			break;
+
+	for(i=0; i<lista[vetEscolhido].contador; i++){			
+		if(num == lista[vetEscolhido].vetPont[i]){						
+			cont++;			
 		}
+	} 
+	
+	if(cont > 0){	
+		for(i=0; i<lista[vetEscolhido].contador; i++){			
+			if(num == lista[vetEscolhido].vetPont[i]){			
+				for(j=i; j<lista[vetEscolhido].contador-1; j++){
+					cont++;
+					lista[vetEscolhido].vetPont[i] = lista[vetEscolhido].vetPont[i+1];	
+				}
+			} 
+		}			
+		
+		lista[vetEscolhido].contador -= 1;
+		
+	} else {
+		
+		printf("Valor inexistente");
 	}
 }
 	
