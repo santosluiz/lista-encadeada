@@ -29,6 +29,7 @@ int main(){
 	
 		switch(opcaoSelecionada){
 			case 1 : {					
+				system("cls");
 				insereDados(lista);				
 				break;
 			}  
@@ -79,8 +80,9 @@ int main(){
 int menu(){
 	int opcao;
 	
-	printf(" --------------- MENU ---------------- \n");
+	printf(" --------------- MENU ---------------- \n\n");
 	printf("1 - Inserir Numeros\n2 - Listar Numeros\n3 - Listar Numeros de Forma Ordenada\n4 - Listar Todos os Numeros de Forma Ordenada\n5 - Excluir Numero\n6 - Aumentar Tamanho de uma Estrutura\n7 - Sair\n");
+	printf("\nInforme sua opcao:  ");
 	scanf("%d", &opcao);	
 			
 	return opcao;
@@ -200,32 +202,48 @@ void ordena(int i, struct listaDados *lista){
 		
 		
 void listarTodosOsDados(struct listaDados *lista){
-	int i, j, *vet;
+	int i, j, k= 0;
 	int somatorio = 0;
-	int aux = 0;
-	int aux2 = 0;
+	int aux;
+	int *vet;
 	
 	for(i=0; i<TAM; i++){
-		somatorio += lista[i].qtd;
+		somatorio += lista[i].contador;
 	}
 	
+	//int vet[somatorio];
 	vet = (int *) malloc(somatorio * sizeof(int));
 	
-	for(i=0; i<lista[aux].contador; i++){	
-		vet[i] = lista[aux].vetPont[i];
-		aux++;		
+	
+	
+	for(i=0; i<TAM; i++){
+		for(j=0; j<lista[i].contador; j++){	
+			vet[k] = lista[i].vetPont[j];
+			k++;			
+		}
 	}
-	
-	puts("\n");
-	
-	for(i=0; i<lista[aux2].contador; i++){
 		
-		printf("%d - ", vet[i]);
-		aux2++;
+	for(i=0; i<somatorio; i++){
+		for(j=i+1; j<somatorio; j++){
+			if(vet[i] > vet[j]){
+				aux = vet[i];
+				vet[i] = vet[j];
+				vet[j] = aux;
+			}
+		}
+	}
+		
+	
+	printf("Todos os valores ordenados: ");
+	for(i=0; i<somatorio; i++){		
+		printf("%d ", vet[i]);
+		
+		if(i < (somatorio - 1)){
+			printf(" - ");
+		}
 	}
 	
 	puts("\n");
-	printf("Somatorio: %d", somatorio);
 	
 }			
 
@@ -287,12 +305,7 @@ void aumentarTamanho(struct listaDados *lista){
 
 void sair(struct listaDados *lista){
 	
-	int i, j;
-	
-	for(i=0; i<TAM; i++){		
-		
-		free(lista[i].vetPont[i]);						
-	}
+	free(lista->vetPont);			
 	
 	system("cls");
 	exit(0);	
