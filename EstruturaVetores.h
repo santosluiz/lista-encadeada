@@ -14,43 +14,20 @@ struct listaDados {
 	int *vetPont;
 	int qtd;
 	int contador;
-	int escolha;	
+	int escolha;
 } lista[TAM];
 
-int  criarEstruturaAuxiliar ( int tamanho, int posicao);
-
-/*
-int  inserirNumeroEmEstrutura ( int valor, int posicao);
-int  excluirNumeroDoFinaldaEstrutura ( int posicao);
-int  excluirNumeroEspecificoDeEstrutura ( int valor, int posicao);
-int  getDadosEstruturaAuxiliar ( int posição, int vetorAux []);
-int  getDadosOrdenadosEstruturaAuxiliar ( int posição, int vetorAux []);
-int  getDadosDeTodasEstruturasAuxiliares ( int vetorAux []);
-int  getDadosOrdenadosDeTodasEstruturasAuxiliares ( int vetorAux []);
-int  modificarTamanhoEstruturaAuxiliar ( int posição, int novoTamanho);
-int  getQuantidadeElementosEstruturaAuxiliar ( int posicao);
-Não * montarListaEncadeadaComCabecote ();
-void  getDadosListaEncadeadaComCabecote (No * inicio, int vetorAux []);
-void  destruirListaEncadeadaComCabecote (No * inicio);*/
-void  inicializar ();
-void  finalizar ();
-
-
-/*int inserirNumeroEmEstrutura(struct listaDados *lista);
-void listarDados(struct listaDados *lista);
-void listarDadosOrdenados(struct listaDados *lista);
-void ordena(int i, struct listaDados *lista);
-void listarTodosOsDados(struct listaDados *lista);
-void modificarTamanho(struct listaDados *lista);
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho, struct listaDados *lista);
-void excluirEspecifico(struct listaDados *lista);
-int excluirNumeroDoFinaldaEstrutura(int posicao, struct listaDados *lista);
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor, struct listaDados *lista);
-int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]);
+int criarEstruturaAuxiliar(int tamanho, int posicao);
+int inserirNumeroEmEstrutura (int valor, int posicao);
+int getDadosEstruturaAuxiliar( int posicao, int vetorAux[]);
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]);
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]);
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]);
-int getQuantidadeElementosEstruturaAuxiliar(int posicao);
-void inicializar();
-void finalizar(struct listaDados *lista);
-void dobrar(int *x);*/
+int excluirNumeroEspecificoDeEstrutura(int valor, int posicao);
+int excluirNumeroDoFinaldaEstrutura(int posicao);
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho);
+int ehPosicaoValida(int posicao);
+int obterTamanhoVetor();
+int valorExisteNaEstrutura(int valor);
+void ordena(int tamanho, int vetorAux[]);
+void finalizar();
