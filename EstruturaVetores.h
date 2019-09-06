@@ -32,3 +32,4 @@ int obterTamanhoVetor();
 int valorExisteNaEstrutura(int valor);
 void ordena(int tamanho, int vetorAux[]);
 void finalizar();
+void inicializar();

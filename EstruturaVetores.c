@@ -387,3 +387,7 @@ void finalizar() {
     free(lista[i].vetPont);
   }
 }
+
+void inicializar(){
+
+}
