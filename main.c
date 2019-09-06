@@ -148,9 +148,10 @@ int main() {
     case 5:{
         //listar todos os dados
         somatorio = 0;
-        system("clear");
-        for (i = 0; i <TAM; i++) {
-          somatorio += lista[i].contador;
+        for (i = 0; i < TAM; i++) {
+          if(lista[i].contador >= 0){
+            somatorio += lista[i].contador;
+          }
         }
         int vetorAux[somatorio];
         ret = getDadosDeTodasEstruturasAuxiliares(vetorAux);
@@ -173,8 +174,11 @@ int main() {
         system("clear");
         somatorio = 0;
         for (i = 0; i < TAM; i++) {
-          somatorio += lista[i].contador;
+          if(lista[i].contador >= 0){
+            somatorio += lista[i].contador;
+          }
         }
+
         int vetorAux[somatorio];
         ret = getDadosOrdenadosDeTodasEstruturasAuxiliares(vetorAux);
 
