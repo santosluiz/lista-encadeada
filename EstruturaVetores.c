@@ -17,10 +17,9 @@ int criarEstruturaAuxiliar(int tamanho, int posicao) {
 
   int retorno = 0;
 
-  if (ehPosicaoValida(posicao)) {
-    posicao -= 1;
+  if (ehPosicaoValida(posicao) == SUCESSO) {
 
-    if (lista[posicao].vetPont != NULL) {
+    if (lista[posicao].vetPont == NULL) {
 
       if (tamanho > 0) {
         lista[posicao].vetPont = (int * ) malloc(tamanho * sizeof(int));
@@ -57,11 +56,11 @@ int inserirNumeroEmEstrutura(int valor, int posicao) {
   int temEspaco = 0;
   int posicao_invalida = 0;
 
-  if (ehPosicaoValida(posicao))
+  if (ehPosicaoValida(posicao) == SUCESSO)
     if (lista[posicao].vetPont != NULL) {
       if (lista[posicao].contador != lista[posicao].qtd) {
         lista[posicao].vetPont[lista[posicao].contador] = valor;
-        lista[aux].contador += 1;
+        lista[posicao].contador += 1;
         retorno = SUCESSO;
 
       } else {
@@ -89,12 +88,12 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
 
   int i, retorno = 0;
 
-  if (ehPosicaoValida(posicao)) {
+  if (ehPosicaoValida(posicao) == SUCESSO) {
     if (lista[posicao].vetPont != NULL) {
 
       for (i = 0; i < lista[posicao].contador; i++) {
-        vetorAux[i] = lista[posicao].vetPont[i]);
-    }
+        vetorAux[i] = lista[posicao].vetPont[i];
+      }
 
     retorno = SUCESSO;
 
@@ -140,10 +139,10 @@ Retorno (int)
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
 
   int retorno = 0;
-  int k = 0;
+  int i, j, k = 0;
   int count = 0;
 
-  for (i = 0; i < TAM; i++) {
+  for(i=0; i<TAM; i++){
 
     if (lista[i].contador != NULL) {
       for (j = 0; j < lista[i].contador; j++) {
@@ -198,15 +197,17 @@ Rertono (int)
     NUMERO_INEXISTENTE - Número não existe
 */
 int excluirNumeroEspecificoDeEstrutura(int valor, int posicao) {
-  int retorno = 0;
+  int i, j, retorno = 0;
 
-  if (ehPosicaoValida(posicao)) {
-    posicao -= 1;
+  if (ehPosicaoValida(posicao) == SUCESSO) {
 
     if (lista[posicao].vetPont != NULL) {
 
       if (lista[posicao].contador == 0) {
-        if (!valorExisteNaEstrutura(valor)) {
+        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+      } else {
+
+        if (valorExisteNaEstrutura(valor) == 1) {
 
           for (i = 0; i < lista[posicao].contador; i++) {
             if (valor == lista[posicao].vetPont[i]) {
@@ -223,8 +224,6 @@ int excluirNumeroEspecificoDeEstrutura(int valor, int posicao) {
         } else {
           retorno = NUMERO_INEXISTENTE;
         }
-      } else {
-        retorno = ESTRUTURA_AUXILIAR_VAZIA;
       }
     } else {
       retorno = SEM_ESTRUTURA_AUXILIAR;
@@ -244,7 +243,6 @@ Rertono (int)
     SUCESSO - excluido com sucesso
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
     ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia
-
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
 */
 
@@ -253,12 +251,14 @@ int excluirNumeroDoFinaldaEstrutura(int posicao) {
   int pos, j, l, i, cont = 0;
 
   pos = ehPosicaoValida(posicao);
-  posicao -= 1;
 
   if (pos == SUCESSO) {
     if (lista[posicao].vetPont != NULL) {
       if (lista[posicao].contador == 0) {
 
+      retorno = SEM_ESTRUTURA_AUXILIAR;
+
+      } else {
         for (j = 0; j < lista[posicao].contador; j++) {
           cont++;
         }
@@ -276,11 +276,10 @@ int excluirNumeroDoFinaldaEstrutura(int posicao) {
         lista[posicao].contador -= 1;
         lista[posicao].qtd -= 1;
         retorno = SUCESSO;
-      } else {
-        retorno = ESTRUTURA_AUXILIAR_VAZIA;
+
       }
     } else {
-      retorno = SEM_ESTRUTURA_AUXILIAR;
+
     }
   } else {
     retorno = POSICAO_INVALIDA;
@@ -301,8 +300,9 @@ Rertono (int)
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
 
-  if (ehPosicaoValida(posicao)) {
-    posicao -= 1;
+  int retorno = 0;
+
+  if (ehPosicaoValida(posicao) == SUCESSO) {
 
     if (lista[posicao].vetPont != NULL) {
 
@@ -371,10 +371,10 @@ int valorExisteNaEstrutura(int valor) {
 int ehPosicaoValida(int posicao) {
   int retorno = 0;
 
-  if (posicao < 1 || posicao > 10) {
-    retorno = POSICAO_INVALIDA;
-  } else {
+  if (posicao >= 0 && posicao < 10) {
     retorno = SUCESSO;
+  } else {
+    retorno = POSICAO_INVALIDA;
   }
 
   return retorno;

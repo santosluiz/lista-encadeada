@@ -22,10 +22,10 @@ int menu() {
 }
 
 int main() {
-  inicializar();
   int op;
   int sair = 0;
   int ret;
+  int i;
   int tamanho = 0;
   int posicao = 0;
   int valor = 0;
@@ -42,8 +42,9 @@ int main() {
 
     case 1:{
         system("clear");
-        printf("De 1 a 10, qual vetor voce deseja criar?");
+        printf("Criar Estrutura - De 1 a 10, qual vetor voce deseja criar?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         printf("Digite a qtd de elementos que voce deseja inserir:");
         scanf("%d", & tamanho);
@@ -56,8 +57,12 @@ int main() {
           printf("Tamanho Invalido\n");
         } else if (ret == JA_TEM_ESTRUTURA_AUXILIAR) {
           printf("Ja tem estrutura Auxiliar\n");
-        } else if (ret == SEM_ESPACO_DE_MEMORIA; printf("Sem espaco de memoria\n");
+        } else if (ret == SEM_ESPACO_DE_MEMORIA){
+          printf("Sem espaco de memoria\n");
+        } else if(ret == POSICAO_INVALIDA){
+          printf("Posicao invalida\n");
         }
+
 
         break;
       }
@@ -65,8 +70,9 @@ int main() {
     case 2:{
         //inserir
         system("clear");
-        printf("De 1 a 10, qual vetor voce deseja escolher?");
+        printf("Inserir Dados - De 1 a 10, qual vetor voce deseja escolher?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         printf("Digite o valor que voce deseja inserir:");
         scanf("%d", & valor);
@@ -90,8 +96,9 @@ int main() {
         //listar dados
         system("clear");
 
-        printf("De 1 a 10, qual vetor voce deseja listar os dados?");
+        printf("Listar Dados - De 1 a 10, qual vetor voce deseja listar os dados?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         int vetorAux[lista[posicao].contador];
         ret = getDadosEstruturaAuxiliar(posicao, vetorAux);
@@ -99,7 +106,7 @@ int main() {
         if (ret == SUCESSO) {
           printf("Sucesso\n");
 
-          for (i = 0; i < lista[posicao].contador; i++) {
+          for(i=0; i<lista[posicao].contador; i++) {
             printf("%d\n", vetorAux[i]);
           }
         } else if (ret == SEM_ESTRUTURA_AUXILIAR) {
@@ -115,8 +122,9 @@ int main() {
         //listar dados ordenados
         system("clear");
 
-        printf("De 1 a 10, qual vetor voce deseja listar os dados?");
+        printf("Listar Dados Ordenados - De 1 a 10, qual vetor voce deseja listar os dados?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         int vetorAux[lista[posicao].contador];
 
@@ -139,9 +147,9 @@ int main() {
 
     case 5:{
         //listar todos os dados
-
+        somatorio = 0;
         system("clear");
-        for (i = 0; i < TAM; i++) {
+        for (i = 0; i <TAM; i++) {
           somatorio += lista[i].contador;
         }
         int vetorAux[somatorio];
@@ -150,7 +158,7 @@ int main() {
         if (ret == SUCESSO) {
           printf("Sucesso\n");
 
-          for (i = 0; i < ; i++) {
+          for (i = 0; i < somatorio; i++) {
             printf("%d\n", vetorAux[i]);
           }
         } else if (ret == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS) {
@@ -163,7 +171,7 @@ int main() {
     case 6:{
         //listar todos os dados ordenados
         system("clear");
-
+        somatorio = 0;
         for (i = 0; i < TAM; i++) {
           somatorio += lista[i].contador;
         }
@@ -173,7 +181,7 @@ int main() {
         if (ret == SUCESSO) {
           printf("Sucesso\n");
 
-          for (i = 0; i < ; i++) {
+          for (i = 0; i < somatorio; i++) {
             printf("%d\n", vetorAux[i]);
           }
         } else if (ret == TODAS_ESTRUTURAS_AUXILIARES_VAZIAS) {
@@ -187,8 +195,9 @@ int main() {
         //excluir numero especifico
         system("clear");
 
-        printf("Qual posicao no vetor voce deseja escolher para apagar o ultimo valor?");
+        printf("Excluir Num Específico - Qual vetor voce deseja escolher?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         printf("Qual valor voce deseja apagar?");
         scanf("%d", & valor);
@@ -214,8 +223,9 @@ int main() {
         //excluir ultimo numero
         system("clear");
 
-        printf("Qual posicao no vetor voce deseja escolher para apagar o ultimo valor?");
+        printf("Excluir Ultimo Numero - Qual vetor voce deseja escolher?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         ret = excluirNumeroDoFinaldaEstrutura(posicao);
 
@@ -233,14 +243,12 @@ int main() {
       }
 
     case 9:{
-
-        /* TO DO -> IMPLEMENTAR MÉTODO DE MODIFICAR TAMANHO DA ESTRUTURA */
-
         //modificar tamanho
         system("clear");
 
-        printf("Qual posicao no vetor voce deseja escolher para inserir um novo tamanho?");
+        printf("Aumentar Tamanho - Qual vetor voce deseja escolher?");
         scanf("%d", & posicao);
+        posicao -= 1;
 
         printf("Insira o novo tamanho?");
         scanf("%d", & novoTamanho);
