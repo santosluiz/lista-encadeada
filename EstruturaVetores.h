@@ -44,3 +44,4 @@ int insereQuantidade(char vetor[], char vetQuantidade[], int *indexVetQtd, int *
 int insereValores(char vetor[], char vetValores[], int *indexVetQtd, int *auxiliar, int i, int posicao);
 int verificaValor(char vetor[], int tipo);
 void carregarBinario();
+void liberaVetor(int posicao);

@@ -417,7 +417,6 @@ void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantid
       //O primeiro item é o index do array. Ele é de 0 a 9.
       //Caso seja um numero diferente disso: erro!
       if(linha[0] >= 48 && linha[0] <= 57){
-        printf("Vetor: %c \n", linha[0]);
         index[0] = linha[0];
         posicao = atoi(index);
         posicao -= 1;
@@ -441,7 +440,10 @@ void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantid
             retorno = insereValores(linha, vetValores, indexVetQtd, auxiliar, i, posicao);
           }
         }
-        printf("Retorno - %d", retorno);
+        if(retorno != SUCESSO){
+          printf("Erro ao carregar os dados no vetor %d", posicao);
+          liberaVetor(posicao);
+        }
         puts("\n");
       } else {
         printf("Erro - Index do vetor invalido!\n");
@@ -463,8 +465,6 @@ int insereQuantidade(char vetor[], char vetQuantidade[], int *indexVetQtd, int *
 
     if(retorno == SUCESSO){
       tamanho = atoi(vetQuantidade);
-      printf("Qtd: %d\n", tamanho);
-
       criarEstruturaAuxiliar(tamanho, posicao);
 
       *indexVetQtd = 0;
@@ -492,7 +492,6 @@ int insereValores(char vetor[], char vetValores[], int *indexVetQtd, int *auxili
 
       *indexVetQtd = 0;
       memset(vetValores, 0, vetValoresQTD);
-      printf("Valor: %d\n", valor);
     }
   }
 
@@ -521,4 +520,11 @@ int verificaValor(char vetor[], int tipo){
   }
 
   return retorno;
+}
+
+void liberaVetor(int posicao){
+  lista[posicao].qtd = -1;
+  lista[posicao].contador = -1;
+  free(lista[posicao].vetPont);
+  lista[posicao].vetPont = NULL;
 }
