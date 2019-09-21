@@ -9,7 +9,13 @@
 #define NUMERO_INEXISTENTE -9
 #define NOVO_TAMANHO_INVALIDO -10
 #define TODAS_ESTRUTURAS_AUXILIARES_VAZIAS -11
+#define ERRO_INDEX_VETOR -20
+#define ERRO_QUANTIDADE_VETOR -21
+#define ERRO_VALORES_VETOR -22
 #define TAM 10
+#define linhaQtd 100
+#define vetQuantidadeQTD 4
+#define vetValoresQTD 100
 
 struct listaDados {
 	int *vetPont;
@@ -33,3 +39,8 @@ int valorExisteNaEstrutura(int valor);
 void ordena(int tamanho, int vetorAux[]);
 void finalizar();
 void inicializar();
+void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantidade[], char vetValores[], int *indexVetQtd, int *auxiliar);
+int insereQuantidade(char vetor[], char vetQuantidade[], int *indexVetQtd, int *auxiliar, int i, int posicao);
+int insereValores(char vetor[], char vetValores[], int *indexVetQtd, int *auxiliar, int i, int posicao);
+int verificaValor(char vetor[], int tipo);
+void carregarBinario();

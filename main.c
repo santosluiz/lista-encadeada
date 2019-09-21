@@ -31,6 +31,9 @@ int main() {
   int valor = 0;
   int somatorio = 0;
   int novoTamanho = 0;
+
+  inicializar();
+
   while (!sair) {
     op = menu();
     switch (op) {

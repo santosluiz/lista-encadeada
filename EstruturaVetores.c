@@ -389,5 +389,143 @@ void finalizar() {
 }
 
 void inicializar(){
+  FILE *arqEntrada;
+  char *result;
+  char linha[linhaQtd], vetQuantidade[vetQuantidadeQTD], vetValores[vetValoresQTD];
+  int a = 0, b = 0, *indexVetQtd, *auxiliar, opcao;
 
+  indexVetQtd = &a;
+  auxiliar = &b;
+
+  do{
+    printf("Voce deseja carregar os dados com arquivo de texto ou binario? \n 0 - Texto\n 1 - Binario\n");
+    scanf("%d", &opcao);
+  } while(opcao > 1);
+
+  if(opcao == 0){
+    carregarTexto(arqEntrada, result, linha, vetQuantidade, vetValores, indexVetQtd, auxiliar);
+  } else {
+    carregarBinario();
+  }
+}
+
+void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantidade[], char vetValores[], int *indexVetQtd, int *auxiliar){
+  int i, indexVetorValido, achouQtd, retorno, posicao;
+
+  arqEntrada = fopen("entrada.txt", "rt");
+
+  if(arqEntrada == NULL){
+    printf("Problemas na abertura do arquivo\n");
+    return 0;
+  }
+
+  while (!feof(arqEntrada)){
+    result = fgets(linha, 100, arqEntrada);
+
+    if(result){
+      //O primeiro item é o index do array. Ele é de 0 a 9.
+      //Caso seja um numero diferente disso: erro!
+      if(linha[0] >= 48 && linha[0] <= 57){
+        printf("Vetor: %c \n", linha[0]);
+        posicao = atoi(linha[0]);
+        indexVetorValido = SUCESSO;
+      } else {
+        indexVetorValido = ERRO_INDEX_VETOR;
+      }
+
+      if(indexVetorValido == SUCESSO){
+        achouQtd = 0;
+        *indexVetQtd = 0;
+
+        for(i = 2; i < strlen(linha) != '\0'; i++){
+          if(achouQtd != SUCESSO){
+            //PEGA A QUANTIDADE -> 43 é um mais ( + )
+            achouQtd = insereQuantidade(linha, vetQuantidade, indexVetQtd, auxiliar, i, posicao);
+            retorno = achouQtd;
+          }
+
+          if(achouQtd == SUCESSO){
+            retorno = insereValores(linha, vetValores, indexVetQtd, auxiliar, i, posicao);
+          }
+        }
+        printf("Retorno - %d", retorno);
+        puts("\n");
+      } else {
+        printf("Erro - Index do vetor invalido!\n");
+      }
+    }
+  }
+}
+
+int insereQuantidade(char vetor[], char vetQuantidade[], int *indexVetQtd, int *auxiliar, int i, int posicao){
+  int retorno = 0, tamanho = 0;
+
+  if(vetor[i] != 43){
+    vetQuantidade[*indexVetQtd] = vetor[i];
+    vetQuantidade[*indexVetQtd + 1] = '\0';
+    *indexVetQtd += 1;
+  }
+  else if(vetor[i] == 43){
+    retorno = verificaValor(vetQuantidade, 1);
+
+    if(retorno == SUCESSO){
+      tamanho = atoi(vetQuantidade);
+      printf("Qtd: %d\n", tamanho);
+
+      criarEstruturaAuxiliar(tamanho, posicao);
+
+      *indexVetQtd = 0;
+      memset(vetQuantidade, 0, vetQuantidadeQTD);
+    }
+  }
+
+  return retorno;
+}
+
+int insereValores(char vetor[], char vetValores[], int *indexVetQtd, int *auxiliar, int i, int posicao){
+  int j, valor, retorno;
+
+  if(vetor[i + 1] != 44){
+    vetValores[*indexVetQtd] = vetor[i + 1];
+    vetValores[*indexVetQtd + 1] = '\0';
+    *indexVetQtd += 1;
+  }
+  else if(vetor[i + 1] == 44){
+    retorno = verificaValor(vetValores, 2);
+
+    if(retorno == SUCESSO){
+      valor = atoi(vetValores);
+      inserirNumeroEmEstrutura(valor, posicao);
+
+      *indexVetQtd = 0;
+      memset(vetValores, 0, vetValoresQTD);
+      printf("Valor: %d\n", valor);
+    }
+  }
+
+  return retorno;
+}
+
+int verificaValor(char vetor[], int tipo){
+  //Tipo 1 - Quantidade
+  //Tipo 2 - Valor
+  int i, ehNumero = 0, retorno;
+
+  for(i = 0; i < strlen(vetor); i++){
+    if(vetor[i] >= 48 && vetor[i] <= 57)  {
+      ehNumero++;
+    }
+  }
+
+  if(ehNumero == strlen(vetor)){
+    retorno = SUCESSO;
+  } else {
+    if(tipo == 1)  {
+      retorno = ERRO_QUANTIDADE_VETOR;
+    } else {
+      retorno = ERRO_VALORES_VETOR;
+    }
+  }
+
+  return retorno;
 }
