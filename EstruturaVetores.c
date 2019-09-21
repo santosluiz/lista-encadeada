@@ -14,7 +14,6 @@ Rertono (int)
    - TAMANHO_INVALIDO - o tamanho tem inteiro maior ou igual a 1
 */
 int criarEstruturaAuxiliar(int tamanho, int posicao) {
-
   int retorno = 0;
 
   if (ehPosicaoValida(posicao) == SUCESSO) {
@@ -50,11 +49,7 @@ Objetivo: inserir n�mero 'valor' na estrutura auxiliar da posicao 'posicao'
 	CONSTANTES
 */
 int inserirNumeroEmEstrutura(int valor, int posicao) {
-
-  int retorno = 0;
-  int existeEstruturaAuxiliar = 0;
-  int temEspaco = 0;
-  int posicao_invalida = 0;
+  int retorno = 0, existeEstruturaAuxiliar = 0, temEspaco = 0, posicao_invalida = 0;
 
   if (ehPosicaoValida(posicao) == SUCESSO)
     if (lista[posicao].vetPont != NULL) {
@@ -85,7 +80,6 @@ Retorno (int)
     POSICAO_INVALIDA - posicao invalida para estrutura auxiliar
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
-
   int i, retorno = 0;
 
   if (ehPosicaoValida(posicao) == SUCESSO) {
@@ -97,14 +91,14 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
 
     retorno = SUCESSO;
 
+    } else {
+      retorno = SEM_ESTRUTURA_AUXILIAR;
+    }
   } else {
-    retorno = SEM_ESTRUTURA_AUXILIAR;
+    retorno = POSICAO_INVALIDA;
   }
-} else {
-  retorno = POSICAO_INVALIDA;
-}
 
-return retorno;
+  return retorno;
 }
 
 /*
@@ -116,7 +110,6 @@ Rertono (int)
     POSICAO_INVALIDA - posicao invalida para estrutura auxiliar
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
-
   int i, tamanhoVetor = 0, retorno = 0;
 
   retorno = getDadosEstruturaAuxiliar(posicao, vetorAux);
@@ -137,7 +130,6 @@ Retorno (int)
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - nao tem nenhum valor
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
-
   int retorno = 0;
   int i, j, k = 0;
   int count = 0;
@@ -171,7 +163,6 @@ Rertono (int)
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - nao tem nenhum valor
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
-
   int i, tamanhoVetor = 0, retorno = 0;
 
   retorno = getDadosDeTodasEstruturasAuxiliares(vetorAux);
@@ -299,7 +290,6 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
-
   int retorno = 0;
 
   if (ehPosicaoValida(posicao) == SUCESSO) {
@@ -411,6 +401,7 @@ void inicializar(){
 
 void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantidade[], char vetValores[], int *indexVetQtd, int *auxiliar){
   int i, indexVetorValido, achouQtd, retorno, posicao;
+  char index[2];
 
   arqEntrada = fopen("entrada.txt", "rt");
 
@@ -427,7 +418,9 @@ void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantid
       //Caso seja um numero diferente disso: erro!
       if(linha[0] >= 48 && linha[0] <= 57){
         printf("Vetor: %c \n", linha[0]);
-        posicao = atoi(linha[0]);
+        index[0] = linha[0];
+        posicao = atoi(index);
+        posicao -= 1;
         indexVetorValido = SUCESSO;
       } else {
         indexVetorValido = ERRO_INDEX_VETOR;
