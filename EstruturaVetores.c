@@ -317,10 +317,8 @@ int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
 }
 
 void ordena(int tamanho, int vetorAux[]) {
-
   int i, j, aux;
 
-  //for(i=0; i<lista[posicao]; i++){
   for (i = 0; i < tamanho; i++) {
     for (j = i + 1; j < tamanho; j++) {
       if (vetorAux[i] > vetorAux[j]) {
@@ -378,6 +376,54 @@ void finalizar() {
   }
 }
 
+void salvarDadosEmArquivo(){
+  int salvar, opcao;
+
+  do{
+    printf("Deseja salvar os dados em um arquivo?\n 0 - SIM\n 1 - NAO\n");
+    scanf("%d", &salvar);
+  }while(salvar > 1);
+
+  puts("\n");
+
+  if(salvar == 0){
+    do{
+      printf("Escolha o tipo de arquivo:\n 0 - Texto\n 1 - Binario\n");
+      scanf("%d", &opcao);
+    }while(opcao > 1);
+
+    if(opcao == 0){
+      salvarDadosTxt();
+    }
+  }
+}
+
+void salvarDadosTxt(){
+  int i, j;
+  FILE *arq;
+
+  arq = fopen("entrada.txt", "w");
+
+   if(arq == NULL){
+    printf("Erro, nao foi possivel abrir o arquivo\n");
+   } else {
+      for(i=0; i<TAM; i++){
+        if (lista[i].contador != NULL) {
+            fprintf(arq, "%d", i + 1);
+            fprintf(arq, "-");
+            fprintf(arq, "%d", lista[i].qtd);
+            fprintf(arq, "+");
+
+          for(j=0; j<lista[i].contador; j++){
+            fprintf(arq, "%d", lista[i].vetPont[j]);
+            fprintf(arq, ",");
+          }
+          fprintf(arq, "\n");
+        }
+      }
+   }
+}
+
 void inicializar(){
   FILE *arqEntrada;
   char *result;
@@ -395,7 +441,7 @@ void inicializar(){
   if(opcao == 0){
     carregarTexto(arqEntrada, result, linha, vetQuantidade, vetValores, indexVetQtd, auxiliar);
   } else {
-    carregarBinario();
+//    carregarBinario();
   }
 }
 
@@ -419,7 +465,9 @@ void carregarTexto(FILE *arqEntrada, char *result, char linha[], char vetQuantid
       if(linha[0] >= 48 && linha[0] <= 57){
         index[0] = linha[0];
         posicao = atoi(index);
-        posicao -= 1;
+        if(posicao != 9){
+          posicao -= 1;
+        }
         indexVetorValido = SUCESSO;
       } else {
         indexVetorValido = ERRO_INDEX_VETOR;

@@ -39,6 +39,7 @@ int main() {
     switch (op) {
     case 0:{
         sair = 1;
+        salvarDadosEmArquivo();
         finalizar();
         break;
       }
