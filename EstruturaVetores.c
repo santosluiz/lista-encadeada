@@ -428,20 +428,27 @@ void inicializar(){
   FILE *arqEntrada;
   char *result;
   char linha[linhaQtd], vetQuantidade[vetQuantidadeQTD], vetValores[vetValoresQTD];
-  int a = 0, b = 0, *indexVetQtd, *auxiliar, opcao;
+  int a = 0, b = 0, *indexVetQtd, *auxiliar, escolha, opcao;
 
   indexVetQtd = &a;
   auxiliar = &b;
 
   do{
-    printf("Voce deseja carregar os dados com arquivo de texto ou binario? \n 0 - Texto\n 1 - Binario\n");
-    scanf("%d", &opcao);
-  } while(opcao > 1);
+    printf("Voce deseja carregar os dados atraves de um arquivo? \n 0 - SIM\n 1 - NAO\n");
+    scanf("%d", &escolha);
+  } while(escolha > 1);
 
-  if(opcao == 0){
-    carregarTexto(arqEntrada, result, linha, vetQuantidade, vetValores, indexVetQtd, auxiliar);
-  } else {
-//    carregarBinario();
+  if(escolha == 0){
+    do{
+      printf("O arquivo eh em formato de texto ou binario? \n 0 - Texto\n 1 - Binario\n");
+      scanf("%d", &opcao);
+    } while(opcao > 1);
+
+    if(opcao == 0){
+      carregarTexto(arqEntrada, result, linha, vetQuantidade, vetValores, indexVetQtd, auxiliar);
+    } else {
+    //    carregarBinario();
+    }
   }
 }
 
